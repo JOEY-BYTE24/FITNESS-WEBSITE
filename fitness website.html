@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulse 254 — Kenya's Fitness Platform</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <div class="logo" onclick="navigate('home')">PULSE <span>254</span></div>
+  <ul class="nav-links">
+    <li><a id="nav-home"      class="active" onclick="navigate('home')">Home</a></li>
+    <li><a id="nav-workouts"             onclick="navigate('workouts')">Workouts</a></li>
+    <li><a id="nav-nutrition"           onclick="navigate('nutrition')">Nutrition</a></li>
+    <li><a id="nav-progress"             onclick="navigate('progress')">Progress</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-outline" onclick="navigate('auth'); showAuthTab('signin')">Sign In</button>
+    <button class="btn-primary" onclick="navigate('auth'); showAuthTab('signup')">Sign Up</button>
+  </div>
+</nav>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast"></div>
+
+<!-- ===================================================
+     HOME PAGE
+===================================================== -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div class="hero-badge">
+      <div class="dot"></div>
+      Kenya's #1 Fitness Platform
+    </div>
+    <h1>TRAIN LIKE<br>A <span class="accent">KENYAN</span></h1>
+    <p>Built for the Kenyan body, powered by Kenyan meals. Track workouts, eat smart, and run faster than ever before.</p>
+    <div class="hero-cta">
+      <button class="btn-big primary" onclick="navigate('auth'); showAuthTab('signup')">Start For Free</button>
+      <button class="btn-big outline" onclick="navigate('workouts')">Browse Workouts</button>
+    </div>
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="num">12K+</div><div class="lbl">Active Members</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">80+</div><div class="lbl">Workouts</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">50+</div><div class="lbl">Kenyan Meals</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">47</div><div class="lbl">Counties Covered</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="section-label">Why Pulse 254</div>
+    <h2 class="section-title">BUILT FOR YOU</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🏋️</div>
+        <h3>Structured Workouts</h3>
+        <p>Upper body, lower body, chest & arms, shoulders, and full cardio sessions designed by Kenyan fitness coaches.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🥗</div>
+        <h3>Kenyan Nutrition</h3>
+        <p>Ugali, sukuma, githeri and more — locally-sourced meal plans with full macro breakdowns tailored for your goals.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3>Progress Tracking</h3>
+        <p>Log every session, track your weekly streak, and watch your fitness history grow over time.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⏱️</div>
+        <h3>Built-in Timer</h3>
+        <p>Rest timer and workout timer with preset durations to keep your sessions on track and intensity high.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🇰🇪</div>
+        <h3>Made in Kenya</h3>
+        <p>Designed for Nairobi gym-goers and upcountry athletes alike. Content that speaks your language.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Goal-Based Plans</h3>
+        <p>Whether you want to lose weight, build muscle, or run a marathon — we have a plan for your journey.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================================================
+     WORKOUTS PAGE
+===================================================== -->
+<div id="page-workouts" class="page">
+  <div class="page-header">
+    <h1>WORKOUTS</h1>
+    <p>Choose your focus area and get moving. Each workout includes sets, reps, and coaching cues.</p>
+  </div>
+  <div class="workout-tabs">
+    <button class="tab-btn active" onclick="filterWorkouts('all', this)">All</button>
+    <button class="tab-btn"        onclick="filterWorkouts('upper', this)">Upper Body</button>
+    <button class="tab-btn"        onclick="filterWorkouts('lower', this)">Lower Body</button>
+    <button class="tab-btn"        onclick="filterWorkouts('chest', this)">Chest, Hands &amp; Shoulders</button>
+    <button class="tab-btn"        onclick="filterWorkouts('cardio', this)">Cardio</button>
+  </div>
+  <div class="workout-grid" id="workout-grid"></div>
+</div>
+
+<!-- ===================================================
+     NUTRITION PAGE
+===================================================== -->
+<div id="page-nutrition" class="page">
+  <div class="page-header">
+    <h1>NUTRITION</h1>
+    <p>Fuel your body with traditional Kenyan meals packed with balanced macros for peak performance.</p>
+  </div>
+  <div class="workout-tabs">
+    <button class="tab-btn active"  onclick="filterMeals('all', this)">All Meals</button>
+    <button class="tab-btn"         onclick="filterMeals('breakfast', this)">Breakfast</button>
+    <button class="tab-btn"         onclick="filterMeals('lunch', this)">Lunch</button>
+    <button class="tab-btn"         onclick="filterMeals('dinner', this)">Dinner</button>
+    <button class="tab-btn"         onclick="filterMeals('snack', this)">Snacks</button>
+  </div>
+  <div class="meal-grid" id="meal-grid"></div>
+</div>
+
+<!-- ===================================================
+     PROGRESS PAGE
+===================================================== -->
+<div id="page-progress" class="page">
+  <div class="page-header">
+    <h1>PROGRESS</h1>
+    <p>Your fitness journey at a glance. Log workouts, track streaks, and stay consistent.</p>
+  </div>
+  <div class="progress-layout">
+
+    <!-- Left Column -->
+    <div style="display:flex; flex-direction:column; gap:1.25rem;">
+
+      <!-- Weekly Activity -->
+      <div class="progress-card">
+        <h3>Weekly Activity</h3>
+        <div class="week-grid" id="week-grid"></div>
+        <div class="streak-info" id="streak-info"></div>
+      </div>
+
+      <!-- Workout Log -->
+      <div class="progress-card">
+        <h3>Workout Log</h3>
+        <div class="log-list" id="log-list">
+          <div class="empty-state">
+            <div class="icon">📋</div>
+            <p>No workouts logged yet.<br>Head to workouts and start your first session!</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column -->
+    <div style="display:flex; flex-direction:column; gap:1.25rem;">
+
+      <!-- Timer -->
+      <div class="timer-card">
+        <h3>Rest Timer</h3>
+        <div class="timer-display" id="timer-display">01:30</div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="timer-bar" style="width:100%"></div>
+        </div>
+        <div class="timer-btns">
+          <button class="timer-btn start" id="timer-start-btn" onclick="timerToggle()">Start</button>
+          <button class="timer-btn"                             onclick="timerReset()">Reset</button>
+        </div>
+        <div class="timer-presets">
+          <div style="font-size:12px; color:var(--text2); margin-bottom:4px;">Quick Presets</div>
+          <div class="preset-row">
+            <button class="preset-btn" onclick="setTimer(30)">30s</button>
+            <button class="preset-btn" onclick="setTimer(60)">1 min</button>
+            <button class="preset-btn" onclick="setTimer(90)">1:30</button>
+            <button class="preset-btn" onclick="setTimer(120)">2 min</button>
+          </div>
+          <div class="preset-row">
+            <button class="preset-btn" onclick="setTimer(180)">3 min</button>
+            <button class="preset-btn" onclick="setTimer(300)">5 min</button>
+            <button class="preset-btn" onclick="setTimer(600)">10 min</button>
+            <button class="preset-btn" onclick="setTimer(1200)">20 min</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Summary -->
+      <div class="progress-card">
+        <h3>Stats Summary</h3>
+        <div class="stats-summary-grid">
+          <div class="macro" style="padding:12px;">
+            <div class="val" id="stat-total"  style="color:var(--green);  font-size:22px;">0</div>
+            <div class="lbl">Total Workouts</div>
+          </div>
+          <div class="macro" style="padding:12px;">
+            <div class="val" id="stat-week"   style="color:var(--amber);  font-size:22px;">0</div>
+            <div class="lbl">This Week</div>
+          </div>
+          <div class="macro" style="padding:12px;">
+            <div class="val" id="stat-streak" style="color:var(--red);    font-size:22px;">0</div>
+            <div class="lbl">Day Streak</div>
+          </div>
+          <div class="macro" style="padding:12px;">
+            <div class="val" id="stat-fav"    style="color:var(--green);  font-size:14px; font-weight:500;">—</div>
+            <div class="lbl">Top Category</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================
+     AUTH PAGE
+===================================================== -->
+<div id="page-auth" class="page">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="auth-logo">PULSE 254</div>
+      <div class="auth-sub">Kenya's Fitness Platform</div>
+
+      <div class="auth-tabs-row">
+        <button class="auth-tab active" id="tab-signin" onclick="showAuthTab('signin')">Sign In</button>
+        <button class="auth-tab"        id="tab-signup" onclick="showAuthTab('signup')">Sign Up</button>
+      </div>
+
+      <!-- Sign In Form -->
+      <div id="form-signin">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="signin-email" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="signin-pass" placeholder="Enter your password">
+        </div>
+        <button class="form-submit" onclick="handleSignin()">Sign In</button>
+        <div class="auth-footer">
+          Don't have an account? <a onclick="showAuthTab('signup')">Sign up free</a>
+        </div>
+      </div>
+
+      <!-- Sign Up Form -->
+      <div id="form-signup" style="display:none;">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="signup-name" placeholder="e.g. Wanjiku Mwangi">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="signup-email" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="signup-pass" placeholder="Create a strong password">
+        </div>
+        <button class="form-submit" onclick="handleSignup()">Create Account</button>
+        <div class="auth-footer">
+          Already have an account? <a onclick="showAuthTab('signin')">Sign in</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
